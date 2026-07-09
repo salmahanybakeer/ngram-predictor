@@ -1,4 +1,15 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:conda",
-    "python-envs.defaultPackageManager": "ms-python.python:conda"
+    "python.defaultInterpreterPath": "C:\\Users\\Salma\\miniconda3\\envs\\ngram-predictor\\python.exe",
+
+    "terminal.integrated.profiles.windows": {
+        "NGramPredictor": {
+            "path": "C:\\Windows\\System32\\cmd.exe",
+            "args": [
+                "/K",
+                "C:\\Users\\Salma\\miniconda3\\Scripts\\activate.bat C:\\Users\\Salma\\miniconda3\\envs\\ngram-predictor"
+            ]
+        }
+    },
+
+    "terminal.integrated.defaultProfile.windows": "NGramPredictor"
 }
