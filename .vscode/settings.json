@@ -11,5 +11,7 @@
         }
     },
 
-    "terminal.integrated.defaultProfile.windows": "NGramPredictor"
+    "terminal.integrated.defaultProfile.windows": "NGramPredictor",
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda"
 }
