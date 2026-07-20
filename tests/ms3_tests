@@ -1,0 +1,9 @@
+from src.data_prep.normalizer import Normalizer
+from src.model.ngram_model import NGramModel
+from src.inference.predictor import Predictor
+
+m = NGramModel()
+m.load("data/model/modell.json", "data/model/vocab.json")
+n = Normalizer()
+p = Predictor(m, n)
+print(p.normalize("Holmes looked at Watson very carefully."))
