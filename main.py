@@ -11,19 +11,19 @@ args = parser.parse_args()
 
 if args.step == "dataprep" or args.step == "all":
     n = Normalizer()
-    a = n.load("data/raw/small_train")
+    a = n.load("data/raw/train")
     final = []
     for book in a:
         b = n.sentence_tokenize(book)
         for c in b: 
             x = n.normalize(c)
             final.append(n.word_tokenize(x))
-    n.save(final, "data/processed/small_test.txt")
+    n.save(final, "data/processed/train_tokens.txt")
 
 if args.step == "model" or args.step == "all":
     m = NGramModel()
-    m.build_vocab("data/processed/small_test.txt")
-    count, probability = m.build_counts_and_probabilities("data/processed/small_test.txt")
+    m.build_vocab("data/processed/train_tokens.txt")
+    count, probability = m.build_counts_and_probabilities("data/processed/train_tokens.txt")
     m.save_model("data/model/model.json")
     m.save_vocab("data/model/vocab.json")
 
