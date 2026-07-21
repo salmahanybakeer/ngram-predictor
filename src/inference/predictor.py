@@ -68,7 +68,6 @@ n = Normalizer()
 p = Predictor(m, n)
 print(p.normalize("Holmes looked at Watson very carefully."))
 print(p.map_oov(["at", "watson", "xyzzy"]))
-"""
 
 m = NGramModel()
 m.load("tests/modell.json", "tests/save_output.json")
@@ -77,3 +76,4 @@ p = Predictor(m, n)
 print(p.normalize("Holmes looked at Watson very carefully."))
 print(p.map_oov(["watson", "holmes", "xyzzy"]))
 print(p.predict_next("Holmes looked at", 3))
+"""
