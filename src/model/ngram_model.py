@@ -54,16 +54,24 @@ class NGramModel:
         probability = {}
         for r in range(1,n+1):
             probability[f"{r}gram"] = {}
+            enabled = os.getenv("SMOOTHING")
             for out in count[f"{r}gram"]:
+                 k = float(os.getenv("SMOOTHING_K"))
                  if r==1:
-                    probability[f"{r}gram"][out] = count[f"{r}gram"][out] / sum(count[f"{r}gram"].values())
+                    if enabled:
+                        probability[f"{r}gram"][out] = (count[f"{r}gram"][out]+k) / (sum(count[f"{r}gram"].values())+k*len(self.vocab))
+                    else:
+                        probability[f"{r}gram"][out] = count[f"{r}gram"][out] / sum(count[f"{r}gram"].values())
                  else:
                     x = out.split()[:-1]   
                     context = " ".join(x)            
                     last_word = out.split()[-1]       
                     if context not in probability[f"{r}gram"]:   
-                        probability[f"{r}gram"][context] = {}     
-                    probability[f"{r}gram"][context][last_word] = count[f"{r}gram"][out] / count[f"{r-1}gram"][context]
+                        probability[f"{r}gram"][context] = {}    
+                    if enabled: 
+                        probability[f"{r}gram"][context][last_word] = (count[f"{r}gram"][out]+k) / (count[f"{r-1}gram"][context]+k*len(self.vocab))
+                    else:
+                         probability[f"{r}gram"][context][last_word] = count[f"{r}gram"][out] / count[f"{r-1}gram"][context]
         self.count = count
         self.probability = probability
         return count, probability              
