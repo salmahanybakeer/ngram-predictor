@@ -37,6 +37,9 @@ if args.step == "inference" or args.step == "all":
         text = input()
         if text == "quit":
             break
-        top = int(os.getenv("TOP_K"))
-        predictions = p.predict_next(text,top)
-        print(predictions)
+        try:
+            top = int(os.getenv("TOP_K"))
+            predictions = p.predict_next(text,top)
+            print(predictions)
+        except KeyError:
+            print(f"Missing config variable: {top}. Check config/.env.")

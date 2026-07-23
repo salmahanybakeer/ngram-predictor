@@ -108,12 +108,17 @@ class NGramModel:
         parameters: model_path, vocab_path
         return: model and vocab
         """
-        with open(model_path, "r" , encoding="utf-8") as f:
-            probability = json.load(f)
-        with open(vocab_path, "r" , encoding="utf-8") as f:
-            vocab = json.load(f)
-        self.probability = probability
-        self.vocab = vocab
+        try:
+            with open(model_path, "r" , encoding="utf-8") as f:
+                probability = json.load(f)
+            with open(vocab_path, "r" , encoding="utf-8") as f:
+                vocab = json.load(f)
+            self.probability = probability
+            self.vocab = vocab
+        except FileNotFoundError:
+            print("model.json not found. Run the Model module first.")
+        except json.JSONDecodeError:
+            print("model.json is malformed. Re-run the Model module.")
         return self.probability, self.vocab
 
 

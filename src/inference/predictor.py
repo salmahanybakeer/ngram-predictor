@@ -45,14 +45,18 @@ class Predictor:
         parameters: text, k
         return: list of top-k predicted next words, sorted by probability (highest first)
         """
-        r = self.normalize(text)
-        s = self.map_oov(r) 
-        st = " ".join(s) 
-        result = self.model.lookup(st)
-        sorted_list = sorted(result,key=result.get,reverse = True)
-        out = sorted_list[:k]
-        return out 
-
+        if text == "":
+            print("Input text is empty. Please type at least one word.")
+        else:
+            r = self.normalize(text)
+            s = self.map_oov(r) 
+            st = " ".join(s) 
+            result = self.model.lookup(st)
+            sorted_list = sorted(result,key=result.get,reverse = True)
+            out = sorted_list[:k]
+            return out 
+       
+            
 
 
 

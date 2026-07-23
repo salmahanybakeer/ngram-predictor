@@ -64,10 +64,13 @@ class Normalizer:
         return: list of texts
         """
         text = []
-        for filename in os.listdir(folder_path):
-            if filename.endswith(".txt"):
-                with open(os.path.join(folder_path, filename), encoding="utf-8") as f:
-                    text.append(f.read())
+        try:
+           for filename in os.listdir(folder_path):
+                if filename.endswith(".txt"):
+                    with open(os.path.join(folder_path, filename), encoding="utf-8") as f:
+                        text.append(f.read())
+        except FileNotFoundError:
+                    print(f"Folder not found: {folder_path}. Check TRAIN_RAW_DIR in config/.env.")
         return text 
     def normalize(self,text):
         """ 
