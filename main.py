@@ -2,6 +2,7 @@
 from src.data_prep.normalizer import Normalizer
 from src.model.ngram_model import NGramModel
 from src.inference.predictor import Predictor
+from src.evaluation.evaluator import Evaluator
 import argparse
 import os
 import logging
@@ -50,3 +51,13 @@ if args.step == "inference" or args.step == "all":
             print(predictions)
         except KeyError:
             logger.error(f"Missing config variable: {top}. Check config/.env.")
+
+if args.step == "evaluate" or args.step == "all":
+    m = NGramModel()
+    m.load(os.getenv("MODEL"), os.getenv("VOCAB"))
+    n = Normalizer()
+    e = Evaluator(m, n)
+    e.run(os.getenv("EVAL_TOKENS"))
+
+
+#python main.py --step evaluate
