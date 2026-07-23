@@ -3,6 +3,9 @@ from src.data_prep.normalizer import Normalizer
 from src.model.ngram_model import NGramModel
 load_dotenv("config/.env")
 import os
+import logging
+logger = logging.getLogger(__name__)
+
 class Predictor:
     """
     accepting a pre-loaded NGramModel and Normalizer via the constructor, 
@@ -46,7 +49,8 @@ class Predictor:
         return: list of top-k predicted next words, sorted by probability (highest first)
         """
         if text == "":
-            print("Input text is empty. Please type at least one word.")
+            logger.error("Input text is empty. Please type at least one word.")
+            raise ValueError("Input text is empty. Please type at least one word.")
         else:
             r = self.normalize(text)
             s = self.map_oov(r) 

@@ -2,6 +2,9 @@ from email.mime import text
 from json import load
 import string
 import os
+import logging
+logger = logging.getLogger(__name__)
+
 class Normalizer:
     """ 
     loads, cleans, tokenizes, and saves the corpus
@@ -70,7 +73,7 @@ class Normalizer:
                     with open(os.path.join(folder_path, filename), encoding="utf-8") as f:
                         text.append(f.read())
         except FileNotFoundError:
-                    print(f"Folder not found: {folder_path}. Check TRAIN_RAW_DIR in config/.env.")
+                    logger.error(f"Folder not found: {folder_path}. Check TRAIN_RAW_DIR in config/.env.")
         return text 
     def normalize(self,text):
         """ 

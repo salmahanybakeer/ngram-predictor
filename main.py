@@ -4,6 +4,13 @@ from src.model.ngram_model import NGramModel
 from src.inference.predictor import Predictor
 import argparse
 import os
+import logging
+
+logging.basicConfig(
+    level=os.getenv("LOG_LEVEL", "INFO").upper(),
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--step", type=str)
@@ -42,4 +49,4 @@ if args.step == "inference" or args.step == "all":
             predictions = p.predict_next(text,top)
             print(predictions)
         except KeyError:
-            print(f"Missing config variable: {top}. Check config/.env.")
+            logger.error(f"Missing config variable: {top}. Check config/.env.")

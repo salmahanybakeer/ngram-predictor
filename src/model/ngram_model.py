@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from nltk import probability
 import json
 load_dotenv("config/.env")
+import logging
+logger = logging.getLogger(__name__)
 
 class NGramModel:
     def build_vocab(self,token_file):
@@ -116,9 +118,9 @@ class NGramModel:
             self.probability = probability
             self.vocab = vocab
         except FileNotFoundError:
-            print("model.json not found. Run the Model module first.")
+            logger.error("model.json not found. Run the Model module first.")
         except json.JSONDecodeError:
-            print("model.json is malformed. Re-run the Model module.")
+            logger.error("model.json is malformed. Re-run the Model module.")
         return self.probability, self.vocab
 
 
